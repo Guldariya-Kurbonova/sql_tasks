@@ -40,8 +40,18 @@ group by customer_id;
 
 
 
+-- 197. Rising Temperature
 
 
+-- Solution with Window Function (197)
+select id
+from (
+    select id,
+        recorddate,
+        temperature,
+        lag(temperature) over(order by recorddate) as prev_temp
+    from weather)
+where temperature > prev_temp;
 
 
 
