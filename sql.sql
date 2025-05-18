@@ -41,7 +41,10 @@ group by customer_id;
 
 
 -- 197. Rising Temperature
-
+select w1.id as id from weather as w1 
+inner join weather as w2
+on w1.recorddate = w2.recorddate + INTERVAL '1 day'
+where w1.temperature > w2.temperature;
 
 -- Solution with Window Function (197)
 select id
