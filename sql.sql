@@ -29,6 +29,14 @@ where v.visit_id not in
 group by customer_id;
 
 
+-- Solution with joins (1581)
+SELECT customer_id,
+   count(DISTINCT v.visit_id) as count_no_trans
+FROM visits as v
+left join transactions as t
+on v.visit_id = t.visit_id
+where t.transaction_id IS NULL
+group by customer_id;
 
 
 
