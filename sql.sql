@@ -70,6 +70,21 @@ WHERE a1.activity_type = 'start'
   AND a2.activity_type = 'end'
 GROUP BY a1.machine_id;
 
+-- Solution with CTE
+with process_duration as (
+    select a1.machine_id,
+        a2.timestamp - a1.timestamp as duration
+    from activity as a1 
+    inner join activity as a2 
+    on a1.machine_id = a2.machine_id and 
+    a1.process_id = a2.process_id
+    where a1.activity_type = 'start' and 
+    a2.activity_type = 'end' )
+
+select machine_id,
+    round(avg(duration):: numeric, 3) as processing_time
+from process_duration
+group by machine_id;
 
 
 
